@@ -93,8 +93,8 @@
     </div>
 
     <script>
-    (function startTimer() {
-        setTimeout(tick, 500);
+    (function start() {
+        tick();
     })()
     function tick() {
         function setContent(elementId, content) {
@@ -103,12 +103,13 @@
         var now = new Date();
         setContent('clock', getTimeLabel(now));
         setContent('greeting', getGreetingLabel(now));
+        setTimeout(tick, 500);
     }
     function getTimeLabel(time) {
         function formatTime(number) {
             return ("0" + number).slice(-2);
         }
-        return formatTime(time.getHours()) + ":" + formatTime(time.getMinutes());
+        return formatTime(time.getHours()) + ":" + formatTime(time.getMinutes()); // + ":" + formatTime(time.getSeconds());
     }
     function getGreetingLabel(time, name = "Bernhard") {
         time = time.getHours() * 100;

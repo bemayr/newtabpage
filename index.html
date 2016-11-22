@@ -6,12 +6,118 @@
     <title>new tab</title>
     <meta name="description" content="a new tab was opened and is ready to use">
     <meta name="author" content="@bemayr">
-    
-    <style></style>
+    <style>
+    html {
+        background: url(img/_8305967.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    body {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    #heading {
+        color: white;
+        text-align: center;
+        margin-top: 20vh;
+    }
+    #clock {
+        letter-spacing: -5px;
+        font-size: 1125%;
+        font-weight: 500;
+    }
+    #greeting {
+        font-size: 337.5%;
+        letter-spacing: 0;
+        white-space: nowrap;
+        font-weight: 500;
+    }
+
+    #links {
+        margin-top: 10vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        padding: .7em;
+    }
+    #links > a {
+        color: white;
+        text-decoration: none;
+        text-transform: uppercase;
+        margin: .7em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #links .icon {
+        fill: white;
+        height: 2.3em;
+        width: 2.3em;
+    }
+    #links label {
+        display: block;
+        cursor: pointer;
+        font-size: .5em;
+        text-align: center;
+    }
+    </style>
 </head>
 
 <body>
-    <a href="https://github.com/sindresorhus/awesome">sindresorhus/awesome</a>
-    <script></script>
+    <div id="content">
+        <div id="heading">
+            <div id="clock"></div>
+            <div id="greeting"></div>
+        </div>
+        <div id="links">
+            <a href="https://twitter.com">
+                <svg class="icon" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 300.00006 280" height="280" width="300" version="1.1">
+                    <g style="" transform="translate(-539.18 -568.86)">
+                        <path d="m633.9 812.04c112.46 0 173.96-93.168 173.96-173.96 0-2.6463-0.0539-5.2806-0.1726-7.903 11.938-8.6302 22.314-19.4 30.498-31.66-10.955 4.8694-22.744 8.1474-35.111 9.6255 12.623-7.5693 22.314-19.543 26.886-33.817-11.813 7.0031-24.895 12.093-38.824 14.841-11.157-11.884-27.041-19.317-44.629-19.317-33.764 0-61.144 27.381-61.144 61.132 0 4.7978 0.5364 9.4646 1.5854 13.941-50.815-2.5569-95.874-26.886-126.03-63.88-5.2508 9.0354-8.2785 19.531-8.2785 30.73 0 21.212 10.794 39.938 27.208 50.893-10.031-0.30992-19.454-3.0635-27.69-7.6468-0.009 0.25652-0.009 0.50661-0.009 0.78077 0 29.61 21.075 54.332 49.051 59.934-5.1376 1.4006-10.543 2.1516-16.122 2.1516-3.9336 0-7.766-0.38716-11.491-1.1026 7.7838 24.293 30.355 41.971 57.115 42.465-20.926 16.402-47.287 26.171-75.937 26.171-4.929 0-9.7983-0.28036-14.584-0.84634 27.059 17.344 59.189 27.464 93.722 27.464"/>
+                    </g>
+                </svg>
+                <label>twitter</label>
+            </a>
+            <a href="https://github.com/sindresorhus/awesome">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -67 640 350"><path d="M614.2 91l-150-137.6-21.1 23L568.1 91H75.4l125-114.7-21.1-23L29.3 91h-.1v90.7c0 41 39.5 74.4 88 74.4h92.5c48.5 0 88-33.4 88-74.4v-59.6h48v59.6c0 41 39.5 74.4 88 74.4h92.5c48.5 0 88-33.4 88-74.4V91z"/></svg>
+                <label>awesome</label>
+            </a>
+        </div>
+    </div>
+
+    <script>
+    (function startTimer() {
+        setTimeout(tick, 500);
+    })()
+    function tick() {
+        function setContent(elementId, content) {
+            document.getElementById(elementId).innerHTML = content;
+        }
+        var now = new Date();
+        setContent('clock', getTimeLabel(now));
+        setContent('greeting', getGreetingLabel(now));
+    }
+    function getTimeLabel(time) {
+        function formatTime(number) {
+            return ("0" + number).slice(-2);
+        }
+        return formatTime(time.getHours()) + ":" + formatTime(time.getMinutes());
+    }
+    function getGreetingLabel(time, name = "Bernhard") {
+        time = time.getHours() * 100;
+        if (time < 0400) return "Go to bed, " + name + "."; else
+        if (time < 1100) return "Good morning, " + name + "."; else
+        if (time < 1230) return "Enjoy your meal, " + name + "."; else
+        if (time < 1700) return "Good afternoon, " + name + "."; else
+                         return "Good evening, " + name + ".";
+    }
+    </script>
 </body>
 </html>

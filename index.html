@@ -16,13 +16,6 @@
     <meta name="description" content="a new tab was opened and is ready to use">
     <meta name="author" content="@bemayr">
     <style>
-    html {
-        background: url(img/_8305967.jpg) no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-    }
     body {
         width: 100vw;
         height: 100vh;
@@ -37,6 +30,11 @@
              -moz-user-select: none; /* Firefox */
               -ms-user-select: none; /* Internet Explorer/Edge */
                   user-select: none; /* Non-prefixed version, currently not supported by any browser */
+        font-size: 1em;
+        text-shadow: 0 1px 5px rgba(0,0,0,.1);
+    }
+    #content {
+        z-index: 2;
     }
     #heading {
         color: white;
@@ -83,10 +81,47 @@
         font-size: .5em;
         text-align: center;
     }
+    #background {
+        margin: 0;
+        padding: 0;
+        z-index: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: transparent;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+    #background-overlay {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        background: url(overlay.png);
+        background-size: 100% 100%;
+        opacity: .7;
+    }
+    #background-label {
+        color: white;
+        position: absolute;
+        right: 2em;
+        bottom: 1.2em;
+        font-size: .9em;
+        opacity: .5;
+        text-decoration: none;
+        cursor: pointer;
+    }
     </style>
 </head>
 
-<body>
+<body onload="start()">
+    <div id="background-overlay"></div>
+    <div id="background"></div>
     <div id="content">
         <div id="heading">
             <div id="clock"></div>
@@ -106,12 +141,25 @@
                 <label>awesome</label>
             </a>
         </div>
+        <a id="background-label"></a>
     </div>
 
     <script>
-    (function start() {
+    var images = [
+        { "filename": "_8305967.jpg", "location": "Baltic Sea, Finland"},
+        { "filename": "_9016224.jpg", "location": "Knutnäsvägen, Åland"}
+    ];
+
+    function start() {
+        randomizeBackground(images);
         tick();
-    })()
+    }
+    function randomizeBackground(images, imagePath = "./img/") {
+        randomImage = images[Math.floor(Math.random() * images.length)];
+        document.getElementById('background').style.backgroundImage = "url(" + imagePath + randomImage.filename + ")";
+        document.getElementById('background-label').innerHTML = randomImage.location;
+        document.getElementById('background-label').href = "http://maps.google.com/?q=" + (encodeURIComponent(randomImage.location));
+    }
     function tick() {
         function setContent(elementId, content) {
             document.getElementById(elementId).innerHTML = content;

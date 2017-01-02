@@ -48,7 +48,7 @@
         font-weight: 500;
         margin-bottom: -.08em;
     }
-    #greeting {
+    #greeting-wrapper {
         font-size: 337.5%;
         letter-spacing: 0;
         white-space: nowrap;
@@ -111,7 +111,7 @@
         background-size: 100% 100%;
         opacity: .7;
     }
-    #background-label {
+    #location {
         color: white;
         position: absolute;
         right: 2em;
@@ -122,6 +122,27 @@
         cursor: pointer;
         z-index: 10;
     }
+    #name {
+        outline: 0px solid transparent;
+        cursor: text;
+    }
+    #name:focus {
+        border-bottom: .09em solid white;
+    }
+
+    /* --- http://stackoverflow.com/a/13470210 --- */
+    [contenteditable="true"].single-line {
+        white-space: nowrap;
+        width:200px;
+        overflow: hidden;
+    } 
+    [contenteditable="true"].single-line br {
+        display:none;
+    }
+    [contenteditable="true"].single-line * {
+        display:inline;
+        white-space:nowrap;
+    }
     </style>
 </head>
 
@@ -131,7 +152,7 @@
     <div id="content">
         <div id="heading">
             <div id="clock"></div>
-            <div id="greeting"></div>
+            <div id="greeting-wrapper"><span id="greeting"></span>, <span id="name" class="single-line" contenteditable="true"></span>.</div>
         </div>
         <div id="links">
             <a href="https://twitter.com">
@@ -144,7 +165,7 @@
             </a>
             <a href="https://github.com">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-100 0 1124 1174">
-                    <path d="M 512 0 C 229.25 0 0 229.25 0 512 c 0 226.25 146.688 418.125 350.156 485.812 c 25.594 4.688 34.938 -11.125 34.938 -24.625 c 0 -12.188 -0.469 -52.562 -0.719 -95.312 C 242 908.812 211.906 817.5 211.906 817.5 c -23.312 -59.125 -56.844 -74.875 -56.844 -74.875 c -46.531 -31.75 3.53 -31.125 3.53 -31.125 c 51.406 3.562 78.47 52.75 78.47 52.75 c 45.688 78.25 119.875 55.625 149 42.5 c 4.654 -33 17.904 -55.625 32.5 -68.375 C 304.906 725.438 185.344 681.5 185.344 485.312 c 0 -55.938 19.969 -101.562 52.656 -137.406 c -5.219 -13 -22.844 -65.094 5.062 -135.562 c 0 0 42.938 -13.75 140.812 52.5 c 40.812 -11.406 84.594 -17.031 128.125 -17.219 c 43.5 0.188 87.312 5.875 128.188 17.281 c 97.688 -66.312 140.688 -52.5 140.688 -52.5 c 28 70.531 10.375 122.562 5.125 135.5 c 32.812 35.844 52.625 81.469 52.625 137.406 c 0 196.688 -119.75 240 -233.812 252.688 c 18.438 15.875 34.75 47 34.75 94.75 c 0 68.438 -0.688 123.625 -0.688 140.5 c 0 13.625 9.312 29.562 35.25 24.562 C 877.438 930 1024 738.125 1024 512 C 1024 229.25 794.75 0 512 0 Z" />
+                    <path d="M 512 0 C 229.25 0 0 229.25 0 512 c 0 226.25 146.688 418.125 350.156 485.812 c 25.594 4.688 34.938 -11.125 34.938 -24.625 c 0 -12.188 -0.469 -52.562 -0.719 -95.312 C 242 908.812 211.906 817.5 211.906 817.5 c -23.312 -59.125 -56.844 -74.875 -56.844 -74.875 c -46.531 -31.75 3.53 -31.125 3.53 -31.125 c 51.406 3.562 78.47 52.75 78.47 52.75 c 45.688 78.25 119.875 55.625 149 42.5 c 4.654 -33 17.904 -55.625 32.5 -68.375 C 304.906 725.438 185.344 681.5 185.344 485.312 c 0 -55.938 19.969 -101.562 52.656 -137.406 c -5.219 -13 -22.844 -65.094 5.062 -135.562 c 0 0 42.938 -13.75 140.812 52.5 c 40.812 -11.406 84.594 -17.031 128.125 -17.219 c 43.5 0.188 87.312 5.875 128.188 17.281 c 97.688 -66.312 140.688 -52.5 140.688 -52.5 c 28 70.531 10.375 122.562 5.125 135.5 c 32.812 35.844 52.625 81.469 52.625 137.406 c 0 196.688 -119.75 240 -233.812 252.688 c 18.438 15.875 34.75 47 34.75 94.75 c 0 68.438 -0.688 123.625 -0.688 140.5 c 0 13.625 9.312 29.562 35.25 24.562 C 877.438 930 1024 738.125 1024 512 C 1024 229.25 794.75 0 512 0 Z"></path>
                 </svg>
             <label>github</label>
             </a>
@@ -164,58 +185,91 @@
                 <label>awesome</label>
             </a>
         </div>
-        <a target="_blank" id="background-label"></a>
+        <a target="_blank" id="location"></a>
     </div>
 
     <script>
-    var images = [
-        { "filename": "0e89624d11f54314a0e28ee09786ac4d.jpg", "location": "Gdańsk, Poland"},
-        { "filename": "7f10ab2daaf147c698525882db1dd09d.jpg", "location": "Янтарный, Калининград"},
-        { "filename": "05676e094c6d4b65b571ddfadda29ff0.jpg", "location": "Orajõe, Estonia"},
-        { "filename": "743f40b2a12d45b18c01f1e5792d023e.jpg", "location": "Baltic Sea, Finland"},
-        { "filename": "ea1ddd9bfa97413188353783e6e55f1f.jpg", "location": "Knutnäsvägen, Åland"},
-        { "filename": "171e018a0fa44ad888c02fb6324a49d2.jpg", "location": "Wartberg ob der Aist, Austria"},
-        { "filename": "ca59b0aa67834a9fb44552eacc879f19.jpg", "location": "Wartberg ob der Aist, Austria"},
-        { "filename": "c79992d7ce4148ceb288bb83632f9138.jpg", "location": "Wolfsegg, Austria"},
-        { "filename": "fa396395ddbb494b8f0448601c948599.jpg", "location": "Wolfsegg, Austria"},
-        { "filename": "0cc265f656c342e9b2631b9c5e3b5e86.jpg", "location": "Wartberg ob der Aist, Austria"},
-        { "filename": "179f7801a531484fa1d55b360d136fb4.jpg", "location": "Wartberg ob der Aist, Austria"},
-        { "filename": "528ed337ec3c4bf8af9592758a9e8ef0.jpg", "location": "Wartberg ob der Aist, Austria"}
-    ];
+    (function(){
+        var images = [
+            { "filename": "0e89624d11f54314a0e28ee09786ac4d.jpg", "location": "Gdańsk, Poland"},
+            { "filename": "7f10ab2daaf147c698525882db1dd09d.jpg", "location": "Янтарный, Калининград"},
+            { "filename": "05676e094c6d4b65b571ddfadda29ff0.jpg", "location": "Orajõe, Estonia"},
+            { "filename": "743f40b2a12d45b18c01f1e5792d023e.jpg", "location": "Baltic Sea, Finland"},
+            { "filename": "ea1ddd9bfa97413188353783e6e55f1f.jpg", "location": "Knutnäsvägen, Åland"},
+            { "filename": "171e018a0fa44ad888c02fb6324a49d2.jpg", "location": "Wartberg ob der Aist, Austria"},
+            { "filename": "ca59b0aa67834a9fb44552eacc879f19.jpg", "location": "Wartberg ob der Aist, Austria"},
+            { "filename": "c79992d7ce4148ceb288bb83632f9138.jpg", "location": "Wolfsegg, Austria"},
+            { "filename": "fa396395ddbb494b8f0448601c948599.jpg", "location": "Wolfsegg, Austria"},
+            { "filename": "0cc265f656c342e9b2631b9c5e3b5e86.jpg", "location": "Wartberg ob der Aist, Austria"},
+            { "filename": "179f7801a531484fa1d55b360d136fb4.jpg", "location": "Wartberg ob der Aist, Austria"},
+            { "filename": "528ed337ec3c4bf8af9592758a9e8ef0.jpg", "location": "Wartberg ob der Aist, Austria"}
+        ];
 
-    (function start() {
-        randomizeBackground(images);
-        tick();
-    })()
-    function randomizeBackground(images, imagePath = "./img/") {
-        randomImage = images[Math.floor(Math.random() * images.length)];
-        document.getElementById('background').style.backgroundImage = "url(" + imagePath + randomImage.filename + ")";
-        document.getElementById('background-label').innerHTML = randomImage.location;
-        document.getElementById('background-label').href = "http://maps.google.com/?q=" + (encodeURIComponent(randomImage.location));
-    }
-    function tick() {
+        /* General Helper Functions */
         function setContent(elementId, content) {
-            document.getElementById(elementId).innerHTML = content;
+            document.getElementById(elementId).innerHTML = content
         }
-        var now = new Date();
-        setContent('clock', getTimeLabel(now));
-        setContent('greeting', getGreetingLabel(now));
-        setTimeout(tick, 500);
-    }
-    function getTimeLabel(time) {
-        function formatTime(number) {
-            return ("0" + number).slice(-2);
+        /* ------------------------ */
+
+        (function start() {
+            randomizeBackground(images)
+            loadName()
+            tick()
+        })()
+        function randomizeBackground(images, imagePath = "./img/") {
+            randomImage = images[Math.floor(Math.random() * images.length)]
+            document.getElementById('background').style.backgroundImage = "url(" + imagePath + randomImage.filename + ")"
+            document.getElementById('location').innerHTML = randomImage.location
+            document.getElementById('location').href = "http://maps.google.com/?q=" + (encodeURIComponent(randomImage.location))
         }
-        return formatTime(time.getHours()) + ":" + formatTime(time.getMinutes()); // + ":" + formatTime(time.getSeconds());
-    }
-    function getGreetingLabel(time, name = "Bernhard") {
-        time = (time.getHours() * 100) + time.getMinutes();
-        if (time < 0400) return "Go to bed, " + name + "."; else
-        if (time < 1100) return "Good morning, " + name + "."; else
-        if (time < 1230) return "Enjoy your meal, " + name + "."; else
-        if (time < 1700) return "Good afternoon, " + name + "."; else
-                         return "Good evening, " + name + ".";
-    }
+        function loadName() {
+            var name = window.name
+            if(name)
+                setContent('name', name)
+            else
+                storeName("your name here")
+        }
+        function storeName(name) {
+            // localStorage not available in Edge with file:/// and cookies not available in Chrome with file:///
+            // http://stackoverflow.com/questions/5914029/javascript-html-storage-options-under-file-protocol-file && http://phrogz.net/tmp/data-through-window.name/
+            window.name = name
+            if(name)
+                loadName()
+        }
+        (function() {
+            var nameInput = document.getElementById("name")
+            nameInput.onkeyup = function(event) {
+                if(event.keyCode == 13)
+                    nameInput.blur()
+                else
+                    storeName(nameInput.textContent)
+            };
+            nameInput.onblur = function(event) {
+                if(nameInput.textContent == "")
+                    storeName("still your name here")
+            }
+        })()
+        function tick() {
+            var now = new Date();
+            setContent('clock', getTime(now))
+            setContent('greeting', getGreeting(now))
+            setTimeout(tick, 1000)
+        }
+        function getTime(time) {
+            function formatTime(number) {
+                return ("0" + number).slice(-2)
+            }
+            return formatTime(time.getHours()) + ":" + formatTime(time.getMinutes())
+        }
+        function getGreeting(time) {
+            time = (time.getHours() * 100) + time.getMinutes();
+            if (time < 0400) return "Go to bed"; else
+            if (time < 1100) return "Good morning"; else
+            if (time < 1230) return "Enjoy your meal"; else
+            if (time < 1700) return "Good afternoon"; else
+                             return "Good evening"
+        }
+    })()
     </script>
 </body>
 </html>

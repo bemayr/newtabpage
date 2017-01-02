@@ -129,20 +129,6 @@
     #name:focus {
         border-bottom: .09em solid white;
     }
-
-    /* --- http://stackoverflow.com/a/13470210 --- */
-    [contenteditable="true"].single-line {
-        white-space: nowrap;
-        width:200px;
-        overflow: hidden;
-    } 
-    [contenteditable="true"].single-line br {
-        display:none;
-    }
-    [contenteditable="true"].single-line * {
-        display:inline;
-        white-space:nowrap;
-    }
     </style>
 </head>
 
@@ -226,27 +212,33 @@
             var name = window.name
             if(name)
                 setContent('name', name)
-            else
+            else {
                 storeName("your name here")
+                loadName()
+            }
         }
         function storeName(name) {
             // localStorage not available in Edge with file:/// and cookies not available in Chrome with file:///
             // http://stackoverflow.com/questions/5914029/javascript-html-storage-options-under-file-protocol-file && http://phrogz.net/tmp/data-through-window.name/
             window.name = name
-            if(name)
-                loadName()
         }
         (function() {
             var nameInput = document.getElementById("name")
-            nameInput.onkeyup = function(event) {
-                if(event.keyCode == 13)
+            nameInput.onkeydown = function(event) {
+                if(event.keyCode == 13) {
                     nameInput.blur()
-                else
-                    storeName(nameInput.textContent)
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+            }
+            nameInput.onkeyup = function(event) {
+                storeName(nameInput.textContent) // enter is handled in onkeydown
             };
             nameInput.onblur = function(event) {
-                if(nameInput.textContent == "")
+                if(nameInput.textContent == ""){
                     storeName("still your name here")
+                    loadName()
+                }
             }
         })()
         function tick() {

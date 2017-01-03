@@ -195,11 +195,29 @@
         function setContent(elementId, content) {
             document.getElementById(elementId).innerHTML = content
         }
+        function setCookie(name, value, expirydays) {
+            var expires = "expires="+ new Date(new Date().getTime() + expirydays*24*60*60*1000).toUTCString()
+            document.cookie = name + "=" + value + ";" + expires + ";path=/"
+        }
+        function getCookie(name) {
+            var value = "; " + document.cookie
+            var parts = value.split("; " + name + "=")
+            if (parts.length == 2) return parts.pop().split(";").shift()
+        }
+        function storeData(key, value) {
+            try {       localStorage.setItem(key, value) }
+            catch (_) { setCookie(key, value, 2000) }
+        }
+        function loadData(key) {
+            try       { return localStorage.getItem(key) }
+            catch (_) { return getCookie(key) }
+                        return undefined
+        }
         /* ------------------------ */
 
         (function start() {
             randomizeBackground(images)
-            loadName()
+            setName()
             tick()
         })()
         function randomizeBackground(images, imagePath = "./img/") {
@@ -208,19 +226,20 @@
             document.getElementById('location').innerHTML = randomImage.location
             document.getElementById('location').href = "http://maps.google.com/?q=" + (encodeURIComponent(randomImage.location))
         }
-        function loadName() {
-            var name = window.name
+        function setName() {
+            var name = loadName()
             if(name)
                 setContent('name', name)
             else {
                 storeName("your name here")
-                loadName()
+                setName()
             }
         }
         function storeName(name) {
-            // localStorage not available in Edge with file:/// and cookies not available in Chrome with file:///
-            // http://stackoverflow.com/questions/5914029/javascript-html-storage-options-under-file-protocol-file && http://phrogz.net/tmp/data-through-window.name/
-            window.name = name
+            storeData("name", name)
+        }
+        function loadName() {
+            return loadData("name")
         }
         (function() {
             var nameInput = document.getElementById("name")
@@ -237,7 +256,7 @@
             nameInput.onblur = function(event) {
                 if(nameInput.textContent == ""){
                     storeName("still your name here")
-                    loadName()
+                    setName()
                 }
             }
         })()

@@ -222,6 +222,10 @@
             catch (_) { return getCookie(key) }
                         return undefined
         }
+        function clearSelection() { // http://stackoverflow.com/a/13415236
+            if (window.getSelection) window.getSelection().removeAllRanges()
+            else if (document.selection) document.selection.empty()
+        }
         /* ------------------------ */
 
         (function start() {
@@ -267,6 +271,8 @@
                     storeName("still your name here")
                     setName()
                 }
+                else
+                    clearSelection()
             }
         })()
         function tick() {

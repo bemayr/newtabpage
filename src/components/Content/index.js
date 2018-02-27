@@ -1,6 +1,7 @@
 import Clock from "../Clock";
 import Greeting from "../Greeting";
 import React from "react";
+import User from "../User";
 
 class Content extends React.Component {
   timer = undefined;
@@ -42,7 +43,7 @@ class Content extends React.Component {
                 fontWeight: 500
               }}
             >
-              <Greeting time={this.state.time} />, Bernhard.
+              <Greeting time={this.state.time} />, <User />.
             </div>
           </div>
         </div>

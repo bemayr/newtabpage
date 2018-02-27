@@ -18,6 +18,13 @@ const plugins = {
         windows: false
       }
     }
+  },
+  backgroundImages: {
+    resolve: `gatsby-source-filesystem`,
+    options: {
+      name: `data`,
+      path: `${__dirname}/src/data/background-images/`
+    }
   }
 };
 
@@ -25,5 +32,10 @@ module.exports = {
   siteMetadata: {
     title: "new tab"
   },
-  plugins: [plugins.reactHelmet, plugins.resolveSrc, plugins.favicon]
+  plugins: [
+    plugins.reactHelmet,
+    plugins.resolveSrc,
+    plugins.favicon,
+    plugins.backgroundImages
+  ]
 };

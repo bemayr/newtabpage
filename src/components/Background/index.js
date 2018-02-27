@@ -12,7 +12,7 @@ const Background = ({ background }) => (
         position: "absolute",
         ...tlrb0,
         zIndex: -2,
-        backgroundImage: `url(images/${background.filename})`,
+        backgroundImage: `url("${background.path}")`,
         backgroundColor: "transparent",
         backgroundSize: "cover",
         backgroundPosition: "center center",
@@ -23,7 +23,7 @@ const Background = ({ background }) => (
       style={{
         position: "fixed",
         ...tlrb0,
-        background: `url(${overlay})`,
+        background: `url("${overlay}")`,
         backgroundSize: "100% 100%",
         opacity: 0.7,
         zIndex: -1

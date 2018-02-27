@@ -1,8 +1,13 @@
-# newtabpage
-x-browser customizable new tab page
+# gatsby-starter-default
+The default Gatsby starter
 
-http://stackoverflow.com/questions/6551446/can-i-run-html-files-directly-from-github-instead-of-just-viewing-their-source
+For an overview of the project structure please refer to the [Gatsby documentation - Building with Components](https://www.gatsbyjs.org/docs/building-with-components/)
 
-accessible via:
-- https://rawgit.com/bemayr/newtabpage/master/index.html
-- https://cdn.rawgit.com/bemayr/newtabpage/master/index.html
+Install this starter (assuming Gatsby is installed) by running from your CLI:
+```
+gatsby new gatsby-example-site
+```
+
+## Deploy
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-default)

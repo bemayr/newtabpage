@@ -1,5 +1,3 @@
-// import "./index.css";
-
 import "./common.css";
 
 import Background from "../components/Background";
@@ -23,10 +21,13 @@ const extractBackgroundImageData = data =>
 const TemplateWrapper = ({ children, data }) => (
   <div>
     <Helmet
-      title="Gatsby Default Starter"
+      title="new tab"
       meta={[
-        { name: "description", content: "Sample" },
-        { name: "keywords", content: "sample, something" }
+        { name: "description", content: "x-browser new tab page" },
+        {
+          name: "keywords",
+          content: "newtabpage, newtab, new tab, new tab page"
+        }
       ]}
     />
     <Background

@@ -32,6 +32,7 @@ module.exports = {
   siteMetadata: {
     title: "new tab"
   },
+  pathPrefix: "code/bemayr/newtabpage/public",
   plugins: [
     plugins.reactHelmet,
     plugins.resolveSrc,

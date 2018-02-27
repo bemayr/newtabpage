@@ -12,16 +12,17 @@
     "gatsby-source-filesystem": "^1.5.24",
     "react-helmet": "^5.2.0"
   },
-  "keywords": [
-    "gatsby"
-  ],
+  "keywords": ["gatsby"],
   "license": "MIT",
   "main": "n/a",
   "scripts": {
     "prepare-background-images": "node build/prepare-background-images.js",
     "build": "npm run prepare-background-images && gatsby build",
+    "build-local":
+      "npm run prepare-background-images && gatsby build --prefix-paths",
     "develop": "npm run prepare-background-images && gatsby develop",
-    "format": "prettier --trailing-comma es5 --no-semi --single-quote --write \"src/**/*.js\"",
+    "format":
+      "prettier --trailing-comma es5 --no-semi --single-quote --write \"src/**/*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {

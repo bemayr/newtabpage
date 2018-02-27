@@ -1,7 +1,7 @@
-import { noMargin, noPadding, tlrb0 } from "styles/functional";
+import { noMargin, noPadding, tlrb0 } from 'styles/functional'
 
-import React from "react";
-import overlay from "assets/overlay.png";
+import React from 'react'
+import overlay from 'assets/overlay.png'
 
 const Background = ({ background }) => (
   <div>
@@ -9,24 +9,24 @@ const Background = ({ background }) => (
       style={{
         ...noMargin,
         ...noPadding,
-        position: "absolute",
+        position: 'absolute',
         ...tlrb0,
         zIndex: -2,
         backgroundImage: `url("${background.path}")`,
-        backgroundColor: "transparent",
-        backgroundSize: "cover",
-        backgroundPosition: "center center",
-        backgroundRepeat: "no-repeat"
+        backgroundColor: 'transparent',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundRepeat: 'no-repeat',
       }}
     />
     <div
       style={{
-        position: "fixed",
+        position: 'fixed',
         ...tlrb0,
         background: `url("${overlay}")`,
-        backgroundSize: "100% 100%",
+        backgroundSize: '100% 100%',
         opacity: 0.7,
-        zIndex: -1
+        zIndex: -1,
       }}
     />
     <a
@@ -36,19 +36,19 @@ const Background = ({ background }) => (
         background.location
       )}`}
       style={{
-        color: "white",
-        position: "absolute",
-        right: "2em",
-        bottom: "1.2em",
-        fontSize: ".9em",
+        color: 'white',
+        position: 'absolute',
+        right: '2em',
+        bottom: '1.2em',
+        fontSize: '.9em',
         opacity: 0.5,
-        textDecoration: "none",
-        cursor: "pointer"
+        textDecoration: 'none',
+        cursor: 'pointer',
       }}
     >
       {background.location}
     </a>
   </div>
-);
+)
 
-export default Background;
+export default Background

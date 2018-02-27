@@ -15,3 +15,15 @@ body {
   font-size: 1em;
   text-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 }
+
+.app-icon-wrapper > svg {
+  fill: white;
+  height: 2.3em;
+  width: 2.3em;
+}
+
+.links > a:hover,
+a:focus {
+  transform: scale(1.1);
+  opacity: 1;
+}

@@ -1,7 +1,9 @@
 import Clock from "../Clock";
 import Greeting from "../Greeting";
+import Icon from "../Icon";
 import React from "react";
 import User from "../User";
+import { defaults } from "helpers/defaults";
 
 class Content extends React.Component {
   timer = undefined;
@@ -23,7 +25,8 @@ class Content extends React.Component {
     return (
       <div
         style={{
-          cursor: "default"
+          cursor: "default",
+          marginTop: "20vh"
         }}
       >
         <div
@@ -44,6 +47,25 @@ class Content extends React.Component {
               }}
             >
               <Greeting time={this.state.time} />, <User />.
+            </div>
+            <div
+              className="links"
+              style={{
+                marginTop: "10vh",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                padding: ".7em"
+              }}
+            >
+              {defaults.apps.map((app, index) => (
+                <Icon
+                  key={index}
+                  name={app.name}
+                  address={app.address}
+                  icon={app.icon}
+                />
+              ))}
             </div>
           </div>
         </div>

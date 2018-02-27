@@ -1,4 +1,3 @@
-import ContentEditable from "react-contenteditable";
 import React from "react";
 import { defaults } from "helpers/defaults";
 import { storage } from "helpers/storage";
